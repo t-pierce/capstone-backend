@@ -28,16 +28,16 @@ class BlogPost(db.Model):
 
 class BlogPostSchema(ma.Schema):
     class Meta:
-        fields = ("id", "title", "content", "image")
+        fields = ('id', 'title', 'content', 'image')
 
 blog_post_schema = BlogPostSchema()
 blog_posts_schema = BlogPostSchema(many=True)
 
-@app.route("/blog_post/add", methods=["POST"])
+@app.route('/blog_post', methods = ['POST'])
 def add_blog_post():
-    title = request.json.get("title")
-    content = request.json.get("content")
-    image = request.json.get("image")
+    title = request.json.get('title')
+    content = request.json.get('content')
+    image = request.json.get('image')
 
     new_blog = BlogPost(title, content, image)
     db.session.add(new_blog)
@@ -45,10 +45,10 @@ def add_blog_post():
 
     return jsonify(blog_post_schema.dump(new_blog))
 
-@app.route("/blog_post/get", methods=["GET"])
+@app.route('/blog_post/get', methods = ['GET'])
 def get_all_blog_posts():
     all_blog_posts = BlogPost.query.all()
     return jsonify(blog_posts_schema.dump(all_blog_posts))
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     app.run(debug=True)
