@@ -33,7 +33,7 @@ class BlogPostSchema(ma.Schema):
 blog_post_schema = BlogPostSchema()
 blog_posts_schema = BlogPostSchema(many=True)
 
-@app.route('/blog_post', methods = ['POST'])
+@app.route('/blog_post/add', methods = ['POST'])
 def add_blog_post():
     title = request.json.get('title')
     content = request.json.get('content')
