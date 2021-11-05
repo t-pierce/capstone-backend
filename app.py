@@ -50,5 +50,13 @@ def get_all_blog_posts():
     all_blog_posts = BlogPost.query.all()
     return jsonify(blog_posts_schema.dump(all_blog_posts))
 
+@app.route("/blog_post/<id>", methods = ['DELETE'])
+def blog_post_delete(id):
+    blog = BlogPost.query.get(id)
+    db.session.delete(blog)
+    db.session.commit()
+
+    return blog_post_schema.jsonify(blog)    
+
 if __name__ == '__main__':
     app.run(debug=True)
